@@ -1,0 +1,28 @@
+import React, { useState } from "react";
+import Parent from "./Parent";
+
+const InputTest = () => {
+    const [text, setText] = useState('')  
+
+    const textChange = (e) => {
+        setText(e.target.value)
+    }
+
+    const onReset = () =>{
+        setText('');
+    }
+
+
+
+
+    return(
+        <div>
+            <input value={text} onChange={textChange} />
+            <button onClick={onReset}>초기화</button>
+            <div>
+                <h3>내용 : {text }</h3>
+            </div>
+        </div>
+    )
+}
+export default InputTest;

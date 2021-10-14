@@ -1,9 +1,10 @@
 import {Card, Button} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Movie = ({year, title, summary, poster, genres}) =>{
     return(
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={poster} />
+        <Card style={{ width: '18rem' }}>            
+            <Card.Img variant="top" src={poster} />           
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Title>{year}</Card.Title>
@@ -19,7 +20,10 @@ const Movie = ({year, title, summary, poster, genres}) =>{
                 <Card.Text>{/*slice 처음부터 180자 까지만 표시 */}
                     {summary.slice(0,180)}... 
                 </Card.Text>
-                <Button variant="primary">Detail</Button>
+                <Link to={{pathname :'/detail', 
+                            state:{year, title, summary, poster, genres}}}>
+                    <Button variant="primary">Detail</Button>
+                </Link>
             </Card.Body>
         </Card>
     )

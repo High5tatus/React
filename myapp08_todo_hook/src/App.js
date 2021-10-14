@@ -1,23 +1,18 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import TodoFrom from './TodoForm';
-import TodoList from './TodoList';
-import './App.css';
-import { Route, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import Home from './Home';
+import Navigation from './Navigation';
 import TodoView from './TodoView';
 function App() {
   return (
     <BrowserRouter>
-    <Switch>
+    <Navigation />
+      <Switch>
+        <Route path="/" exact={true} component={Home}/>
+        <Route path="/insert" component={TodoFrom}/>
+        <Route path="/findAll" component={Home}/>
         <Route path="/view/:num" component={TodoView}/>
       </Switch>
-      <div>
-      <h1>Todo</h1>
-      <TodoFrom loadContent={loadContent}/><br/>
-      <TodoList lists={listcontent} todoDelete={todoDelete}/>
-      </div>
-      
     </BrowserRouter>
   );
 }

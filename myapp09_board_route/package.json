@@ -1,5 +1,5 @@
 {
-  "name": "myapp08_todo_hook",
+  "name": "myapp09_board_route",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,6 +15,7 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "proxy": "http://localhost:8877",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

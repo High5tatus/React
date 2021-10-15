@@ -15,7 +15,7 @@ const TodoFrom = (props)=>{
         })
     }
     const submitTodo = () =>{
-        fetch('/todo/insert',{
+        fetch('http://localhost:8855/todo/insert',{
             method : 'post',
             headers :{
                 'Content-type' : 'application/json'

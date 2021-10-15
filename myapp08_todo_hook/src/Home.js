@@ -5,37 +5,52 @@ import TodoList from './TodoList';
 import './App.css';
 import { Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import { Container, Form, Button } from 'react-bootstrap';
 
-const Home = () =>{
+const Home = () =>{ 
+
     const [listcontent, setListContent] = useState([]);
   
+    const [word, setWord] = useState('');
+
     useEffect(()=>{
-      loadContent();
-    },[])
+      loadContent()
+    },[word])
+
+
+
+    // useEffect(()=>{
+    //   loadContent();
+    // },[])
+
     const loadContent = () =>{
-      axios.get('/todo/list')
+      axios.get('http://localhost:8855/todo/list?subject=' + word)
         .then((resp)=>{
           console.log(resp.data);
           setListContent(resp.data);
         })
     }
+
+    const getValue = (e) =>{
+      setWord(e.target.value)
+    }
+
     const todoDelete = (num) =>{
-      axios.delete('/todo/delete/' + num)
+      axios.delete('http://localhost:8855/todo/delete/' + num)
       .then(()=>{
           alert("삭제성공")
           setListContent(listcontent.filter(todo=>todo.num!==num))
       })
   }
   return (
-    <BrowserRouter>
-    <Switch>
-      </Switch>
-      <div>
-      <h1>Todo</h1>
-      <TodoList lists={listcontent} todoDelete={todoDelete}/>
-      </div>
+      <Container>
+        <Form className="d-flex mb-2">
+          <Form.Control placeholder="search" name="word" value={word} onChange={getValue} />
+          {/* <Button variant="outline-info" onClick={loadContent}>Search</Button> */}
+        </Form>
+        <TodoList lists={listcontent} todoDelete={todoDelete}/>
+      </Container>
       
-    </BrowserRouter>
   );
 }
 

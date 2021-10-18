@@ -2,23 +2,38 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import BoardItem from "./BoardItem";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,Form } from "react-bootstrap";
 
 const BoardList = () =>{
 
     const [listcontent, setListContent] = useState([]);
+    const [word, setWord] = useState('');
+
+    useEffect(()=>{
+      loadContent()
+    },[word])
+
+    // useEffect(()=>{
+    //   loadContent();
+    // },[])
+
+    const loadContent = () =>{
+      axios.get('/api/get?title=' + word)
+        .then((resp)=>{
+          console.log(resp.data);
+          setListContent(resp.data);
+        })
+    }
+    const getValue = (e) =>{
+        setWord(e.target.value)
+      }
+
 
     useEffect(()=>{
         loadContent();
       },[])
 
-    const loadContent = () =>{
-        axios.get('/api/get')
-          .then((resp)=>{
-            console.log(resp.data);
-            setListContent(resp.data);
-          })
-      }
+    
   
       const boardDelete = (num) =>{
         axios.delete('/api/delete/' + num)
@@ -30,6 +45,7 @@ const BoardList = () =>{
 
     return(
         <Container>
+             <Form.Control placeholder="search" name="word" value={word} onChange={getValue} />
                 <Row>
                     {
                         listcontent.map((board,index) => (
